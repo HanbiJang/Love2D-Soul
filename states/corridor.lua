@@ -68,7 +68,8 @@ local function rollAnom()
 end
 
 local function stepText(s)
-    local base = texts[s]
+    local pool = texts[s]
+    local base = pool[math.random(#pool)]
     if hasAnom and s == aStep then
         return aType.apply(base), aType.color, aType.vibrate, aType.speed
     end
