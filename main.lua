@@ -1,5 +1,6 @@
 local Intro    = require("states.intro")
 local Corridor = require("states.corridor")
+local Battle   = require("states.battle")
 
 local current
 
@@ -29,7 +30,10 @@ function love.load()
     love.graphics.setFont(loadKoreanFont(20))
 
     Intro.load(function()
-        Corridor.load()
+        Corridor.load(function()
+            Battle.load()
+            switchTo(Battle)
+        end)
         switchTo(Corridor)
     end)
     switchTo(Intro)

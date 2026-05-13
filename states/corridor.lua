@@ -87,6 +87,8 @@ local function flash(txt, col, dur, cb)
 end
 
 -- ── loop control ───────────────────────────────────────────
+local onBoss
+
 local function startLoop()
     step     = 0
     segs     = {}
@@ -99,11 +101,7 @@ end
 local function advance()
     loop = loop + 1
     if loop > 8 then
-        -- TODO: 보스 전환
-        flash("...\n\n\n그가 기다리고 있다.", {0.72, 0.05, 0.05}, 3.5, function()
-            loop = 1
-            startLoop()
-        end)
+        flash("...\n\n\n그가 기다리고 있다.", {0.72, 0.05, 0.05}, 3.5, onBoss)
     else
         flash(string.format("루프  %d", loop), {0.28, 0.28, 0.28}, 1.0, startLoop)
     end
@@ -156,7 +154,8 @@ local function drawSeg(seg, x, y)
 end
 
 -- ── public ─────────────────────────────────────────────────
-function M.load()
+function M.load(bossCb)
+    onBoss = bossCb
     math.randomseed(os.time())
     loop = 1
     time = 0
